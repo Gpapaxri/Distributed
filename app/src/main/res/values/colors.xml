@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bgDark">#120A08</color>
+    <color name="gold">#E5B814</color>
+    <color name="input_bg">#1E1513</color>
+    <color name="text_gray">#8C8583</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

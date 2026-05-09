@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient">
+
+    <FrameLayout
+        android:id="@+id/wheelContainer"
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="50dp"
+        android:clipChildren="true"
+        android:clipToPadding="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/addBet"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/wheelRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never" />
+
+        <View
+            android:id="@+id/topFade"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="top"
+            android:background="@drawable/spinner_top_fade"
+            android:importantForAccessibility="no" />
+
+        <View
+            android:id="@+id/bottomFade"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/spinner_bottom_fade"
+            android:importantForAccessibility="no" />
+
+        <View
+            android:id="@+id/centerIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/center_indicator_border"
+            android:elevation="2dp" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/BackPlayPage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/bg_container_border"
+        android:gravity="center"
+        android:text="&lt;"
+        android:textColor="@color/gold"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.018"
+        app:layout_constraintVertical_bias="0.023" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/playButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/bg_button"
+        android:paddingStart="56dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="56dp"
+        android:paddingBottom="14dp"
+        android:text="Play"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/addBet"
+        android:layout_width="240dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="160dp"
+        android:background="@drawable/bg_input"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Ποσό Στοιχήματος"
+        android:inputType="numberDecimal"
+        android:paddingHorizontal="16dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/text_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
