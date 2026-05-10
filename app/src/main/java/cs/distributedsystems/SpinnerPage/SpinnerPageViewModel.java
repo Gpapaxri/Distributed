@@ -12,7 +12,7 @@ public class SpinnerPageViewModel {
     private Map<Double, Integer> mediumMultipliers = new HashMap<>();
     private Map<Double, Integer> highMultipliers = new HashMap<>();
     private static final int total_adapter_items = 10_000;
-    private static final int INITIAL_CENTER_POSITION = 5_000;
+    private static final int INITIAL_CENTER_POSITION = 5_005;
     private final List<SpinnerMultiplier> spinnerMultipliers;
     private boolean isSpinning;
     private int currentCenterAdapterPosition;
@@ -33,6 +33,7 @@ public class SpinnerPageViewModel {
         lowMultipliers.put(1.3d, 7);
         lowMultipliers.put(2.0d, 8);
         lowMultipliers.put(2.5d, 9);
+        lowMultipliers.put(10.0d,10);
 
         mediumMultipliers.put(0.0d, 0);
         mediumMultipliers.put(3.5d, 9);
@@ -40,23 +41,29 @@ public class SpinnerPageViewModel {
         mediumMultipliers.put(1.5d, 7);
         mediumMultipliers.put(1.0d, 6);
         mediumMultipliers.put(0.5d, 5);
+        mediumMultipliers.put(20.0d,10);
 
         highMultipliers.put(0.0d, 0);
         highMultipliers.put(6.5d, 9);
         highMultipliers.put(2.0d, 8);
         highMultipliers.put(1.0d, 7);
+        highMultipliers.put(40.0d,10);
+
         List<SpinnerMultiplier> multipliers = new ArrayList<>();
 
-        multipliers.add(new SpinnerMultiplier(SpinnerPage.get_game().getMultipliers()[0] + "x",SpinnerPage.get_game().getMultipliers()[0],  Color.parseColor("#3E2723"), Color.WHITE));
-        multipliers.add(new SpinnerMultiplier(SpinnerPage.get_game().getMultipliers()[1] + "x",SpinnerPage.get_game().getMultipliers()[1],  Color.parseColor("#4E342E"), Color.WHITE));
-        multipliers.add(new SpinnerMultiplier(SpinnerPage.get_game().getMultipliers()[2] + "x",SpinnerPage.get_game().getMultipliers()[2],  Color.parseColor("#BF360C"), Color.WHITE));
-        multipliers.add(new SpinnerMultiplier(SpinnerPage.get_game().getMultipliers()[3] + "x",SpinnerPage.get_game().getMultipliers()[3],  Color.parseColor("#D84315"), Color.WHITE));
-        multipliers.add(new SpinnerMultiplier(SpinnerPage.get_game().getMultipliers()[4] + "x",SpinnerPage.get_game().getMultipliers()[4],  Color.parseColor("#E64A19"), Color.WHITE));
-        multipliers.add(new SpinnerMultiplier(SpinnerPage.get_game().getMultipliers()[5] + "x",SpinnerPage.get_game().getMultipliers()[5],  Color.parseColor("#F4511E"), Color.WHITE));
-        multipliers.add(new SpinnerMultiplier(SpinnerPage.get_game().getMultipliers()[6] + "x",SpinnerPage.get_game().getMultipliers()[6],  Color.parseColor("#FF7043"), Color.BLACK));
-        multipliers.add(new SpinnerMultiplier(SpinnerPage.get_game().getMultipliers()[7] + "x",SpinnerPage.get_game().getMultipliers()[7],  Color.parseColor("#FF8A65"), Color.BLACK));
-        multipliers.add(new SpinnerMultiplier(SpinnerPage.get_game().getMultipliers()[8] + "x",SpinnerPage.get_game().getMultipliers()[8],  Color.parseColor("#A0522D"), Color.WHITE));
-        multipliers.add(new SpinnerMultiplier(SpinnerPage.get_game().getMultipliers()[9] + "x",SpinnerPage.get_game().getMultipliers()[9],  Color.parseColor("#E5B814"), Color.BLACK));
+        multipliers.add(new SpinnerMultiplier(SpinnerPage.get_game().getMultipliers()[0] + "x",SpinnerPage.get_game().getMultipliers()[0],  Color.parseColor("#8B0000"), Color.WHITE));
+        multipliers.add(new SpinnerMultiplier(SpinnerPage.get_game().getMultipliers()[1] + "x",SpinnerPage.get_game().getMultipliers()[1],  Color.parseColor("#BF360C"), Color.WHITE));
+        multipliers.add(new SpinnerMultiplier(SpinnerPage.get_game().getMultipliers()[2] + "x",SpinnerPage.get_game().getMultipliers()[2],  Color.parseColor("#37474F"), Color.WHITE));
+        multipliers.add(new SpinnerMultiplier(SpinnerPage.get_game().getMultipliers()[3] + "x",SpinnerPage.get_game().getMultipliers()[3],  Color.parseColor("#01579B"), Color.WHITE));
+        multipliers.add(new SpinnerMultiplier(SpinnerPage.get_game().getMultipliers()[4] + "x",SpinnerPage.get_game().getMultipliers()[4],  Color.parseColor("#E65100"), Color.WHITE));
+        multipliers.add(new SpinnerMultiplier(SpinnerPage.get_game().getMultipliers()[5] + "x",SpinnerPage.get_game().getMultipliers()[5],  Color.parseColor("#1A237E"), Color.WHITE));
+        multipliers.add(new SpinnerMultiplier(SpinnerPage.get_game().getMultipliers()[6] + "x",SpinnerPage.get_game().getMultipliers()[6],  Color.parseColor("#4A148C"), Color.WHITE));
+        multipliers.add(new SpinnerMultiplier(SpinnerPage.get_game().getMultipliers()[7] + "x",SpinnerPage.get_game().getMultipliers()[7],  Color.parseColor("#880E4F"), Color.WHITE));
+        multipliers.add(new SpinnerMultiplier(SpinnerPage.get_game().getMultipliers()[8] + "x",SpinnerPage.get_game().getMultipliers()[8],  Color.parseColor("#1B5E20"), Color.WHITE));
+        multipliers.add(new SpinnerMultiplier(SpinnerPage.get_game().getMultipliers()[9] + "x",SpinnerPage.get_game().getMultipliers()[9],  Color.parseColor("#B8860B"), Color.BLACK));
+
+        multipliers.add(new SpinnerMultiplier("JACKPOT", (double) SpinnerPage.get_game().getJackpot(), Color.parseColor("#FFD700"), Color.BLACK));
+
         return multipliers;
     }
 

@@ -19,7 +19,7 @@ public class WalletPagePresenter {
 
         if (addedAmount.isEmpty()){
 
-            view.showMessage("Please put into your recharge amount");
+            view.showMessage("Please Insert Recharge Amount");
             return;
         }
 
@@ -27,11 +27,11 @@ public class WalletPagePresenter {
             double amount = Double.parseDouble(addedAmount.replace(",","."));
             loggedInPlayer.getWallet().rechargeWallet(amount);
             view.updateWallet(loggedInPlayer.getUsername(), amount);
-            view.onAddMoneySuccess("Your balance has been updated successfully");
+            view.onAddMoneySuccess("Balance Updated Successfully");
 
         } catch (NumberFormatException e){
 
-            view.showMessage("Invalid number");
+            view.showMessage("Invalid Amount");
         }
     }
 }

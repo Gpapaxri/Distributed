@@ -56,7 +56,7 @@ public class SpinnerPage extends AppCompatActivity implements SpinnerPageView {
     private double result;
     private ObjectOutputStream oss;
     private ObjectInputStream ois;
-
+    private boolean jackpot = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,12 +148,12 @@ public class SpinnerPage extends AppCompatActivity implements SpinnerPageView {
 
                         double multiplier = result / Double.parseDouble(bet);
 
+                        if(multiplier == game.getJackpot()){
+                            jackpot = true;
+                        }
+
                         runOnUiThread(() -> {
-                            if(multiplier == game.getJackpot()){
-                                createWonWindow();
-                            }else{
-                                presenter.onPlayButtonPressed(multiplier, game.getRiskLevel());
-                            }
+                            presenter.onPlayButtonPressed(multiplier, game.getRiskLevel());
                         });
 
                         presenter.getLoggedInPlayer().getWallet().rechargeWallet(result);
@@ -176,8 +176,16 @@ public class SpinnerPage extends AppCompatActivity implements SpinnerPageView {
     }
 
     @SuppressLint("SetTextI18n")
-    private void createWonWindow(){
-        View popupView = inflater.inflate(R.layout.won_popup_window, null);
+    private void createWonWindow(boolean isJackpot){
+        View popupView;
+        if (isJackpot) {
+            popupView = inflater.inflate(R.layout.jackpot_popup_window, null);
+        } else {
+            popupView = inflater.inflate(R.layout.won_popup_window, null);
+        }
+
+        jackpot = false;
+
         wonPopup = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
 
         TextView edt = popupView.findViewById(R.id.WonText);
@@ -248,7 +256,7 @@ public class SpinnerPage extends AppCompatActivity implements SpinnerPageView {
                 if (cancelled) return;
                 layoutManager.scrollToPositionWithOffset(targetCenterAdapterPosition, 2 * itemHeight);
                 presenter.onSpinComplete(targetCenterAdapterPosition);
-                createWonWindow();
+                createWonWindow(jackpot);
             }
         });
 

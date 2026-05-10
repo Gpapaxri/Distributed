@@ -110,9 +110,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void onLoginSuccess() {
-
         Intent intent = new Intent(this, HomePageActivity.class);
-        showMessage("Successful Login");
+        intent.putExtra("SUCCESS_MESSAGE", "Successful Login");
         citizenMainPageLauncher.launch(intent);
     }
 

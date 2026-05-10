@@ -50,7 +50,8 @@ public class PlayPage extends AppCompatActivity implements PlayPageView{
     private ImageView ivWheel;
     private Button btnPlay;
     private int degreesTotal;
-    private final int[] degrees = {0, 38, 73, 109, 146, 183, 219, 254, 290, 325};
+    //private final int[] degrees = {0, 38, 73, 109, 146, 183, 219, 254, 290, 325};
+    private final int[] degrees = {10, 40, 75, 110, 145, 182, 218, 254, 287, 316, 343};
     private final Map<Double, Integer> lowMultipliers = new HashMap<>();
     private final Map<Double, Integer> mediumMultipliers = new HashMap<>();
     private final Map<Double, Integer> highMultipliers = new HashMap<>();
@@ -105,13 +106,14 @@ public class PlayPage extends AppCompatActivity implements PlayPageView{
             ivWheel.setImageResource(R.drawable.wheel12);
             target.setImageResource(R.drawable.arrow);
         }else if(game.getRiskLevel().equals("Medium")){
-            ivWheel.setImageResource(R.drawable.wheel2);
+            ivWheel.setImageResource(R.drawable.wheel22);
             target.setImageResource(R.drawable.arrowblack);
         }else{
-            ivWheel.setImageResource(R.drawable.wheel3);
+            ivWheel.setImageResource(R.drawable.wheel32);
             target.setImageResource(R.drawable.arrowblack);
         }
 
+        lowMultipliers.put(10.0d, 10);
         lowMultipliers.put(0.1d, 7);
         lowMultipliers.put(0.5d, 6);
         lowMultipliers.put(1.0d, 5);
@@ -120,19 +122,26 @@ public class PlayPage extends AppCompatActivity implements PlayPageView{
         lowMultipliers.put(2.0d, 2);
         lowMultipliers.put(2.5d, 1);
 
-        mediumMultipliers.put(3.5d, 1);
+        mediumMultipliers.put(3.5d, 2);
         mediumMultipliers.put(2.5d, 3);
-        mediumMultipliers.put(1.5d, 5);
-        mediumMultipliers.put(1.0d, 7);
-        mediumMultipliers.put(0.5d, 9);
+        mediumMultipliers.put(1.5d, 4);
+        mediumMultipliers.put(1.0d, 5);
+        mediumMultipliers.put(0.5d, 6);
+        mediumMultipliers.put(20.0d, 10);
 
-        highMultipliers.put(6.5d, 1);
-        highMultipliers.put(2.0d, 2);
-        highMultipliers.put(1.0d, 3);
+        highMultipliers.put(6.5d, 3);
+        highMultipliers.put(2.0d, 4);
+        highMultipliers.put(1.0d, 5);
+        highMultipliers.put(40.0d, 10);
     }
     @SuppressLint("SetTextI18n")
-    private void createWonWindow(){
-        View popupView = inflater.inflate(R.layout.won_popup_window, null);
+    private void createWonWindow(boolean isJackpot){
+        View popupView;
+        if (isJackpot) {
+            popupView = inflater.inflate(R.layout.jackpot_popup_window, null);
+        } else {
+            popupView = inflater.inflate(R.layout.won_popup_window, null);
+        }
         wonPopup = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
 
         TextView edt = popupView.findViewById(R.id.WonText);
@@ -190,7 +199,7 @@ public class PlayPage extends AppCompatActivity implements PlayPageView{
             @Override public void onAnimationStart(Animator animation) {}
             @Override public void onAnimationEnd(Animator animation) {
                 btnPlay.setEnabled(true);
-                createWonWindow();
+                createWonWindow(number == 10);
             }
             @Override public void onAnimationCancel(Animator animation) {}
             @Override public void onAnimationRepeat(Animator animation) {}
@@ -202,10 +211,10 @@ public class PlayPage extends AppCompatActivity implements PlayPageView{
         String bet = betAmount.getText().toString();
 
         if(bet.isEmpty()){
-            showMessage("No betting amount");
+            showMessage("No Betting Amount");
         }else{
             if(presenter.getLoggedInPlayer().getWallet().getBalance() < Double.parseDouble(bet)){
-                showMessage("Not enough funds");
+                showMessage("Not Enough funds");
             }else if (Double.parseDouble(bet) > game.getMaxBet() || Double.parseDouble(bet) < game.getMinBet()){
                 showMessage("Please bet between " + game.getMinBet() + "-" + game.getMaxBet());
             }else{
@@ -239,33 +248,30 @@ public class PlayPage extends AppCompatActivity implements PlayPageView{
 
                         int place;
 
-                        if(multiplier == game.getJackpot()){
-                            createWonWindow();
-                        }else {
-                            if (game.getRiskLevel().equals("Low")) {
-                                if (multiplier == 0.0) {
-                                    place = (random.nextInt(2) + 8) % 10;
-                                } else {
-                                    place = lowMultipliers.get(multiplier);
-                                }
-                            } else if (game.getRiskLevel().equals("Medium")) {
-                                if (multiplier == 0.0) {
-                                    place = random.nextInt(4) * 2;
-                                } else {
-                                    place = mediumMultipliers.get(multiplier);
-                                }
+                        if (game.getRiskLevel().equals("Low")) {
+                            if (multiplier == 0.0) {
+                                place = (random.nextInt(2) + 8) % 10;
                             } else {
-                                if (multiplier == 0.0) {
-                                    place = (random.nextInt(6) + 4) % 10;
-                                } else {
-                                    place = highMultipliers.get(multiplier);
-                                }
+                                place = lowMultipliers.get(multiplier);
                             }
-
-                            runOnUiThread(() -> {
-                                spin(place);
-                            });
+                        } else if (game.getRiskLevel().equals("Medium")) {
+                            if (multiplier == 0.0) {
+                                place = (random.nextInt(4) + 7) % 10;
+                            } else {
+                                place = mediumMultipliers.get(multiplier);
+                            }
+                        } else {
+                            if (multiplier == 0.0) {
+                                place = (random.nextInt(6) + 6) % 10;
+                            } else {
+                                place = highMultipliers.get(multiplier);
+                            }
                         }
+
+                        runOnUiThread(() -> {
+                            spin(place);
+                        });
+
 
                         presenter.getLoggedInPlayer().getWallet().rechargeWallet(result);
 

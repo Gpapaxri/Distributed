@@ -30,7 +30,7 @@ public class SpinnerPagePresenter {
         view.set_PlayButtonEnabled(false);
 
         int current_center = viewModel.get_CurrentCenterAdapterPosition();
-        int current_index = current_center % 10;
+        int current_index = current_center % 11;
         int target_index;
 
 
@@ -45,11 +45,11 @@ public class SpinnerPagePresenter {
 
 
         // Πόσες θέσεις πρέπει να προχωρήσουμε μέσα στις 10 για να αλιγκάρουμε.
-        int shift = (target_index - current_index + 10) % 10;
+        int shift = (target_index - current_index + 11) % 11;
         // Αν shift=0 → τουλάχιστον μία πλήρης μικρή περιστροφή παραπάνω.
-        if (shift == 0) {shift = 10;}
+        if (shift == 0) {shift = 11;}
 
-        int targetCenterPosition = current_center + (rotations * 10) + shift;
+        int targetCenterPosition = current_center + (rotations * 11) + shift;
         view.spinWheel(targetCenterPosition);
     }
 

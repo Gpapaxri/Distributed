@@ -74,9 +74,8 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
 
     @Override
     public void onSignInSuccess(String message){
-
-        showMessage(message);
         Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra("SUCCESS_MESSAGE", message);
         LogInPageLauncher.launch(intent);
     }
 
@@ -98,6 +97,8 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
 
                 String answer = (String) ois.readObject();
 
+                master.close();
+
                 runOnUiThread(() ->{
                     if(answer.equals("User already exists")){
                         showMessage(answer);
@@ -106,10 +107,9 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
                     }
                 });
 
-                master.close();
-
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
+                onSignInSuccess("Successful SignIn");
             }
         }).start();
     }

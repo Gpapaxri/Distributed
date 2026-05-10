@@ -20,7 +20,7 @@ public class SignInPresenter {
         Boolean passwordEmpty = (passwordKeyword == null || passwordKeyword.isEmpty());
 
         if(nameEmpty || passwordEmpty){
-            view.showMessage("Please fill out the whole form");
+            view.showMessage("Please Fill Out All Fields");
             return;
         }
 
