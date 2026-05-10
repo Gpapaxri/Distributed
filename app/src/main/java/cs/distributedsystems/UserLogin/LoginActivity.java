@@ -67,6 +67,11 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         Intent intent = new Intent(this, SignInActivity.class);
 
         signup.setOnClickListener(v -> citizenSignUpLauncher.launch(intent));
+
+        String successMessage = getIntent().getStringExtra("SUCCESS_MESSAGE");
+        if (successMessage != null) {
+            showMessage(successMessage);
+        }
     }
 
     public void login() {

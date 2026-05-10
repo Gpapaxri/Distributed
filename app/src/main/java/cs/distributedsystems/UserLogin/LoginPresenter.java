@@ -22,17 +22,17 @@ public class LoginPresenter {
         boolean isPasswordEmpty = password == null || password.trim().isEmpty();
 
         if (isUsernameEmpty && isPasswordEmpty) {
-            view.showMessage("Please fill out the log in credentials");
+            view.showMessage("Please Fill Out All Fields");
             return;
         }
 
         if (isUsernameEmpty) {
-            view.showMessage("Please put in your username");
+            view.showMessage("Please Insert Your Username");
             return;
         }
 
         if (isPasswordEmpty) {
-            view.showMessage("Please put in your password");
+            view.showMessage("Please Insert your Password");
             return;
         }
 
@@ -42,14 +42,14 @@ public class LoginPresenter {
 
     public void checkPassword(Player player, String password){
         if (player.getUsername().isEmpty()) {
-            view.showMessage("User not found");
+            view.showMessage("User Not Found");
         } else if (player.getPassword().equals(password)) {
 
             loggedInPlayer = player;
             view.onLoginSuccess();
 
         } else {
-            view.showMessage("Wrong password");
+            view.showMessage("Wrong Password");
         }
 
     }
