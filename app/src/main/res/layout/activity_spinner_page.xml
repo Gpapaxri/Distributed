@@ -98,7 +98,7 @@
         android:background="@drawable/bg_input"
         android:ems="10"
         android:gravity="center"
-        android:hint="Ποσό Στοιχήματος"
+        android:hint="Bet Amount"
         android:inputType="numberDecimal"
         android:paddingHorizontal="16dp"
         android:textColor="@android:color/white"
