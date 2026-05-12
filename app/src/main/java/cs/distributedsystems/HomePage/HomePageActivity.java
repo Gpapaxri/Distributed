@@ -71,7 +71,7 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView 
     private List<Game> games = new ArrayList<>();
     private final boolean[] colored = new boolean[3];
     int[] colors = new int[11];
-    private final Map<String, Bitmap> memoryCache = new HashMap<>();
+    private final Map<String, Bitmap> savedLogos = new HashMap<>();
     private File logoDir;
     private ProgressBar progressBar;
 
@@ -239,7 +239,7 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView 
     @Override
     public void getLogo(ImageView imageView, String name) {
         // Έλεγξε in-memory cache (γρήγορος)
-        Bitmap cached = memoryCache.get(name);
+        Bitmap cached = savedLogos.get(name);
         if (cached != null) {
             imageView.setImageBitmap(cached);
             return;
@@ -271,7 +271,7 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView 
 
             if (bitmap != null) {
                 final Bitmap finalBitmap = bitmap;
-                memoryCache.put(name, finalBitmap);
+                savedLogos.put(name, finalBitmap);
                 runOnUiThread(() -> {
                     if (requestedName.equals(imageView.getTag())) {
                         imageView.setImageBitmap(finalBitmap);
@@ -419,9 +419,7 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView 
 
     @Override
     public void createPlayPage(Game game) {
-        Intent intent = (game.getGameName().length() % 2 == 0)
-                ? new Intent(this, PlayPage.class)
-                : new Intent(this, SpinnerPage.class);
+        Intent intent = (game.getGameName().length() % 2 == 0) ? new Intent(this, PlayPage.class) : new Intent(this, SpinnerPage.class);
         intent.putExtra("Game", game);
         homePageLauncher.launch(intent);
     }

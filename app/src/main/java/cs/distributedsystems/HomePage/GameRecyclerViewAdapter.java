@@ -62,11 +62,7 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
 
     private void setGameImage(ImageView imageView, Game game) {
 
-        //imageView.setImageResource(R.drawable.luckydogs);
-
         view.getLogo(imageView, game.getGameLogo());
-        //Bitmap bitmap = BitmapFactory.decodeByteArray(game.getGameLogo(),0,game.getGameLogo().length);
-        //imageView.setImageBitmap(bitmap);
     }
 
     @Override
