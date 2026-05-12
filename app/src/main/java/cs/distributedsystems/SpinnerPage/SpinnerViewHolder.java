@@ -47,7 +47,6 @@ public class SpinnerViewHolder extends RecyclerView.ViewHolder {
             multiplierText.setTypeface(null, android.graphics.Typeface.BOLD);
 
         } else {
-            // ── Κανονικό flat χρώμα για τους υπόλοιπους ──────────────────
             GradientDrawable bg = new GradientDrawable();
             bg.setShape(GradientDrawable.RECTANGLE);
             bg.setCornerRadius(radius);

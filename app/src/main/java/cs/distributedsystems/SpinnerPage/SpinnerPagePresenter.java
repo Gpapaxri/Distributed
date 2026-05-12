@@ -33,7 +33,6 @@ public class SpinnerPagePresenter {
         int current_index = current_center % 11;
         int target_index;
 
-
         if (riskLevel.equals("Low")) {
             target_index = viewModel.getLowMultipliers().get(multiplier);
         } else if (riskLevel.equals("Medium")) {
@@ -42,15 +41,14 @@ public class SpinnerPagePresenter {
             target_index = viewModel.getHighMultipliers().get(multiplier);
         }
 
-
-
-        // Πόσες θέσεις πρέπει να προχωρήσουμε μέσα στις 10 για να αλιγκάρουμε.
         int shift = (target_index - current_index + 11) % 11;
-        // Αν shift=0 → τουλάχιστον μία πλήρης μικρή περιστροφή παραπάνω.
-        if (shift == 0) {shift = 11;}
+
+        if (shift == 0) {
+            shift = 11;
+        }
 
         int targetCenterPosition = current_center + (rotations * 11) + shift;
-        view.spinWheel(targetCenterPosition);
+        view.spin(targetCenterPosition);
     }
 
     public void onSpinComplete(int finalCenterAdapterPosition) {

@@ -27,7 +27,6 @@ public class SpinnerAdapter extends RecyclerView.Adapter<SpinnerViewHolder> {
     public SpinnerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_spinner, parent, false);
 
-        // Κάθε item = 1/5 του ύψους του RecyclerView.
         int rvHeight = parent.getHeight();
         int itemHeight = rvHeight > 0 ? rvHeight / visible_items : fallbackItemHeight(parent);
 
@@ -52,7 +51,6 @@ public class SpinnerAdapter extends RecyclerView.Adapter<SpinnerViewHolder> {
 
     private int fallbackItemHeight(ViewGroup parent) {
         DisplayMetrics dm = parent.getResources().getDisplayMetrics();
-
         return (int)(dm.heightPixels * 0.14f);
     }
 }

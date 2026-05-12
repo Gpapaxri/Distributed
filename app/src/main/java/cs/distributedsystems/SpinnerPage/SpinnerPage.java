@@ -39,7 +39,7 @@ public class SpinnerPage extends AppCompatActivity implements SpinnerPageView {
     private static final int visible_multipliers = 5;
     private static final long spin_duration = 4_000L;
     private static final float deceleration = 2.5f;
-    private RecyclerView wheelRecyclerView;
+    private RecyclerView spinnerRecyclerView;
     private View centerIndicator;
     private View top_fade;
     private View bottom_fade;
@@ -76,7 +76,7 @@ public class SpinnerPage extends AppCompatActivity implements SpinnerPageView {
                 result -> {finish();});
 
         bindViews();
-        setupWheel();
+        setupSpinner();
         betAmount = findViewById(R.id.addBet);
 
         play_button.setOnClickListener(v -> {
@@ -89,25 +89,28 @@ public class SpinnerPage extends AppCompatActivity implements SpinnerPageView {
     }
 
     private void bindViews() {
-        wheelRecyclerView = findViewById(R.id.wheelRecyclerView);
+        spinnerRecyclerView = findViewById(R.id.wheelRecyclerView);
         centerIndicator = findViewById(R.id.centerIndicator);
         top_fade = findViewById(R.id.topFade);
         bottom_fade = findViewById(R.id.bottomFade);
         play_button = findViewById(R.id.playButton);
         btnBack = findViewById(R.id.BackPlayPage);
+
         play_button.setEnabled(true);
     }
 
-    private void setupWheel() {
+    private void setupSpinner() {
         layoutManager = new LinearLayoutManager(this);
-        wheelRecyclerView.setLayoutManager(layoutManager);
+        spinnerRecyclerView.setLayoutManager(layoutManager);
 
-        spinnerAdapter = new SpinnerAdapter(viewModel.get_WheelMultipliers(), viewModel.get_TotalAdapterItems());
-        wheelRecyclerView.setAdapter(spinnerAdapter);
+        spinnerAdapter = new SpinnerAdapter(viewModel.get_spinnerMultipliers(), viewModel.get_TotalAdapterItems());
+        spinnerRecyclerView.setAdapter(spinnerAdapter);
 
-        wheelRecyclerView.setOnTouchListener((v, e) -> true);
 
-        wheelRecyclerView.post(this::finalizeWheelLayout);
+        spinnerRecyclerView.setOnTouchListener((v, e) -> true);
+
+
+        spinnerRecyclerView.post(this::finalizeSpinnerLayout);
     }
 
     @SuppressLint("SetTextI18n")
@@ -132,7 +135,7 @@ public class SpinnerPage extends AppCompatActivity implements SpinnerPageView {
 
                 new Thread(() -> {
                     try {
-                        Socket master = new Socket("192.168.1.6", 1312);
+                        Socket master = new Socket("192.168.1.89", 1312);
 
                         oss = new ObjectOutputStream(master.getOutputStream());
 
@@ -176,7 +179,6 @@ public class SpinnerPage extends AppCompatActivity implements SpinnerPageView {
     @SuppressLint("SetTextI18n")
     private void createWonWindow(boolean isJackpot){
         View popupView;
-
         if (isJackpot) {
             popupView = inflater.inflate(R.layout.jackpot_popup_window, null);
         } else {
@@ -191,7 +193,6 @@ public class SpinnerPage extends AppCompatActivity implements SpinnerPageView {
         edt.setText("You won " + result + " FUN");
 
         TextView edt1 = popupView.findViewById(R.id.titleWon);
-
         if(result > 0.0){
             edt1.setText("Congratulations!");
         }else{
@@ -206,11 +207,11 @@ public class SpinnerPage extends AppCompatActivity implements SpinnerPageView {
     }
 
 
-    private void finalizeWheelLayout() {
-        int rvHeight = wheelRecyclerView.getHeight();
+    private void finalizeSpinnerLayout() {
+        int rvHeight = spinnerRecyclerView.getHeight();
         if (rvHeight == 0) {
 
-            wheelRecyclerView.post(this::finalizeWheelLayout);
+            spinnerRecyclerView.post(this::finalizeSpinnerLayout);
             return;
         }
 
@@ -226,7 +227,7 @@ public class SpinnerPage extends AppCompatActivity implements SpinnerPageView {
     }
 
     @Override
-    public void spinWheel(int targetCenterAdapterPosition) {
+    public void spin(int targetCenterAdapterPosition) {
         if (spinAnimator != null && spinAnimator.isRunning()) {spinAnimator.cancel();}
 
         int currentCenter = viewModel.get_CurrentCenterAdapterPosition();
@@ -242,7 +243,7 @@ public class SpinnerPage extends AppCompatActivity implements SpinnerPageView {
             int current = (int) anim.getAnimatedValue();
             int delta = current - lastValue[0];
             lastValue[0] = current;
-            wheelRecyclerView.scrollBy(0, delta);
+            spinnerRecyclerView.scrollBy(0, delta);
         });
 
         spinAnimator.addListener(new AnimatorListenerAdapter() {
@@ -319,7 +320,7 @@ public class SpinnerPage extends AppCompatActivity implements SpinnerPageView {
 
         new Thread(() -> {
             try {
-                Socket master = new Socket("192.168.1.6", 1312);
+                Socket master = new Socket("192.168.1.89", 1312);
 
                 ObjectOutputStream oss = new ObjectOutputStream(master.getOutputStream());
 

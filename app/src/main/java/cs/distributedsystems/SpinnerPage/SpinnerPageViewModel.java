@@ -19,12 +19,12 @@ public class SpinnerPageViewModel {
 
 
     public SpinnerPageViewModel() {
-        spinnerMultipliers = init_WheelMultipliers();
+        spinnerMultipliers = init_spinnerMultipliers();
         isSpinning = false;
         currentCenterAdapterPosition = INITIAL_CENTER_POSITION;
     }
 
-    private List<SpinnerMultiplier> init_WheelMultipliers() {
+    private List<SpinnerMultiplier> init_spinnerMultipliers() {
         lowMultipliers.put(0.0d, 0);
         lowMultipliers.put(0.1d, 3);
         lowMultipliers.put(0.5d, 4);
@@ -67,7 +67,7 @@ public class SpinnerPageViewModel {
         return multipliers;
     }
 
-    public List<SpinnerMultiplier> get_WheelMultipliers() {return spinnerMultipliers;}
+    public List<SpinnerMultiplier> get_spinnerMultipliers() {return spinnerMultipliers;}
     public int get_TotalAdapterItems() {return total_adapter_items;}
     public boolean isSpinning() {return isSpinning;}
     public void set_isSpinning(boolean spinning) {isSpinning = spinning;}
