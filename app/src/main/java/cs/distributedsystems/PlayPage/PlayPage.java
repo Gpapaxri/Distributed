@@ -50,12 +50,12 @@ public class PlayPage extends AppCompatActivity implements PlayPageView{
     private ImageView ivWheel;
     private Button btnPlay;
     private int degreesTotal;
-    //private final int[] degrees = {0, 38, 73, 109, 146, 183, 219, 254, 290, 325};
     private final int[] degrees = {10, 40, 75, 110, 145, 182, 218, 254, 287, 316, 343};
     private final Map<Double, Integer> lowMultipliers = new HashMap<>();
     private final Map<Double, Integer> mediumMultipliers = new HashMap<>();
     private final Map<Double, Integer> highMultipliers = new HashMap<>();
     private double result;
+    private boolean jackpot = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +86,7 @@ public class PlayPage extends AppCompatActivity implements PlayPageView{
             @Override
             public void onClick(View view) {
                 playGame();
-                betAmount.setText("");
+                //betAmount.setText("");
             }
         });
 
@@ -137,11 +137,15 @@ public class PlayPage extends AppCompatActivity implements PlayPageView{
     @SuppressLint("SetTextI18n")
     private void createWonWindow(boolean isJackpot){
         View popupView;
+
         if (isJackpot) {
             popupView = inflater.inflate(R.layout.jackpot_popup_window, null);
         } else {
             popupView = inflater.inflate(R.layout.won_popup_window, null);
         }
+
+        jackpot = false;
+
         wonPopup = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
 
         TextView edt = popupView.findViewById(R.id.WonText);
@@ -192,6 +196,7 @@ public class PlayPage extends AppCompatActivity implements PlayPageView{
                 ivWheel.getRotation(),
                 ivWheel.getRotation() + rotation
         );
+
         animator.setDuration(4000L);
         animator.start();
 
@@ -199,7 +204,7 @@ public class PlayPage extends AppCompatActivity implements PlayPageView{
             @Override public void onAnimationStart(Animator animation) {}
             @Override public void onAnimationEnd(Animator animation) {
                 btnPlay.setEnabled(true);
-                createWonWindow(number == 10);
+                createWonWindow(jackpot);
             }
             @Override public void onAnimationCancel(Animator animation) {}
             @Override public void onAnimationRepeat(Animator animation) {}
@@ -243,6 +248,10 @@ public class PlayPage extends AppCompatActivity implements PlayPageView{
                         result = (double) ois.readObject();
 
                         double multiplier = result / Double.parseDouble(bet);
+
+                        if(multiplier == game.getJackpot()){
+                            jackpot = true;
+                        }
 
                         Random random = new Random();
 

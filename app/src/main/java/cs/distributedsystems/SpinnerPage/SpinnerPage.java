@@ -105,9 +105,7 @@ public class SpinnerPage extends AppCompatActivity implements SpinnerPageView {
         spinnerAdapter = new SpinnerAdapter(viewModel.get_WheelMultipliers(), viewModel.get_TotalAdapterItems());
         wheelRecyclerView.setAdapter(spinnerAdapter);
 
-
         wheelRecyclerView.setOnTouchListener((v, e) -> true);
-
 
         wheelRecyclerView.post(this::finalizeWheelLayout);
     }
@@ -178,6 +176,7 @@ public class SpinnerPage extends AppCompatActivity implements SpinnerPageView {
     @SuppressLint("SetTextI18n")
     private void createWonWindow(boolean isJackpot){
         View popupView;
+
         if (isJackpot) {
             popupView = inflater.inflate(R.layout.jackpot_popup_window, null);
         } else {
@@ -192,6 +191,7 @@ public class SpinnerPage extends AppCompatActivity implements SpinnerPageView {
         edt.setText("You won " + result + " FUN");
 
         TextView edt1 = popupView.findViewById(R.id.titleWon);
+
         if(result > 0.0){
             edt1.setText("Congratulations!");
         }else{
