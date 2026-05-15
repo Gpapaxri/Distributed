@@ -1,17 +1,11 @@
 package cs.distributedsystems.UserLogin;
 
-
-import cs.distributedsystems.dao.PlayerDAO;
-import cs.distributedsystems.memorydao.PlayerDAOMemory;
 import gr.softeng.distributedsystems.Entities.Player;
 
 public class LoginPresenter {
     private LoginView view;
-    private static PlayerDAO playerDAO;
     private static Player loggedInPlayer;
-    public LoginPresenter() {
-        playerDAO = new PlayerDAOMemory();
-    }
+    public LoginPresenter() {}
 
     public void setView(LoginView view) {
         this.view = view;
@@ -55,8 +49,5 @@ public class LoginPresenter {
     }
     public static Player getLoggedInPlayer() {
         return loggedInPlayer;
-    }
-    public static PlayerDAO getPlayerDAO() {
-        return playerDAO;
     }
 }

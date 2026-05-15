@@ -135,7 +135,7 @@ public class SpinnerPage extends AppCompatActivity implements SpinnerPageView {
 
                 new Thread(() -> {
                     try {
-                        Socket master = new Socket("192.168.1.89", 1312);
+                        Socket master = new Socket("192.168.1.6", 1312);
 
                         oss = new ObjectOutputStream(master.getOutputStream());
 
@@ -320,7 +320,7 @@ public class SpinnerPage extends AppCompatActivity implements SpinnerPageView {
 
         new Thread(() -> {
             try {
-                Socket master = new Socket("192.168.1.89", 1312);
+                Socket master = new Socket("192.168.1.6", 1312);
 
                 ObjectOutputStream oss = new ObjectOutputStream(master.getOutputStream());
 

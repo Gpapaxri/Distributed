@@ -86,7 +86,6 @@ public class PlayPage extends AppCompatActivity implements PlayPageView{
             @Override
             public void onClick(View view) {
                 playGame();
-                //betAmount.setText("");
             }
         });
 

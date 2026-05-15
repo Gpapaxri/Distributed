@@ -7,7 +7,6 @@ import gr.softeng.distributedsystems.Entities.Player;
 public class PlayPagePresenter {
     private PlayPageView view;
     private static Player loggedInPlayer;
-
     public PlayPagePresenter() {
         loggedInPlayer = LoginPresenter.getLoggedInPlayer();
     }

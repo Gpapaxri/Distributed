@@ -6,7 +6,6 @@ import gr.softeng.distributedsystems.Entities.Player;
 public class HomePagePresenter {
     private HomePageView view;
     private static Player loggedInPlayer;
-
     public HomePagePresenter(){ loggedInPlayer = LoginPresenter.getLoggedInPlayer(); }
 
     public Player getLoggedInPlayer() {
